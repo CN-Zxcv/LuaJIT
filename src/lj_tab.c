@@ -13,6 +13,7 @@
 #include "lj_gc.h"
 #include "lj_err.h"
 #include "lj_tab.h"
+#include "lj_debug_tablemark.h"
 
 /* -- Object hashing ------------------------------------------------------ */
 
@@ -122,6 +123,8 @@ static GCtab *newtab(lua_State *L, uint32_t asize, uint32_t hbits)
   }
   if (hbits)
     newhpart(L, t, hbits);
+  // Hx 标记table的创建和销毁
+  t->pc = lj_debug_tablemark(L);
   return t;
 }
 
@@ -222,6 +225,8 @@ void LJ_FASTCALL lj_tab_free(global_State *g, GCtab *t)
     lj_mem_free(g, t, sizetabcolo((uint32_t)t->colo & 0x7f));
   else
     lj_mem_freet(g, t);
+  // Hx
+  lj_debug_tableunmark(t->pc);
 }
 
 /* -- Table resizing ------------------------------------------------------ */

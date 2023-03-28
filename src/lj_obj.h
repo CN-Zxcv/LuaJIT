@@ -505,6 +505,7 @@ typedef struct GCtab {
   MRef node;		/* Hash part. */
   uint32_t asize;	/* Size of array part (keys [0, asize-1]). */
   uint32_t hmask;	/* Hash part mask (size of hash part - 1). */
+  void *pc;
 #if LJ_GC64
   MRef freetop;		/* Top of free elements. */
 #endif

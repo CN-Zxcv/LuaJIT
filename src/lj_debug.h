@@ -63,4 +63,7 @@ enum {
   VARNAME__MAX
 };
 
+// Hx
+BCLine debug_frameline(lua_State *L, GCfunc *fn, cTValue *nextframe);
+
 #endif

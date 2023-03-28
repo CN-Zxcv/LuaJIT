@@ -396,6 +396,26 @@ LJLIB_CF(debug_traceback)
 
 /* ------------------------------------------------------------------------ */
 
+#include "lj_debug_tablemark.h"
+LJLIB_CF(debug_settablemark)
+{
+  int arg;
+  lua_State *L1 = getthread(L, &arg);
+  int enable = luaL_checkinteger(L1, 1);
+  lj_debug_tablemark_enable(enable != 0);
+  return 0;
+}
+
+LJLIB_CF(debug_tablemark)
+{
+  int arg;
+  lua_State *L1 = getthread(L, &arg);
+  int max = lua_isnoneornil(L1, 1) ? 0 : luaL_checkinteger(L1, 1);
+  return lj_debug_tablemark_info(L1, max);
+}
+
+/* ------------------------------------------------------------------------ */
+
 #include "lj_libdef.h"
 
 LUALIB_API int luaopen_debug(lua_State *L)

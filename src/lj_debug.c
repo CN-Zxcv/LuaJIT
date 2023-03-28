@@ -5,6 +5,8 @@
 
 #define lj_debug_c
 #define LUA_CORE
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "lj_obj.h"
 #include "lj_err.h"
@@ -133,7 +135,7 @@ BCLine LJ_FASTCALL lj_debug_line(GCproto *pt, BCPos pc)
 }
 
 /* Get line number for function/frame. */
-static BCLine debug_frameline(lua_State *L, GCfunc *fn, cTValue *nextframe)
+BCLine debug_frameline(lua_State *L, GCfunc *fn, cTValue *nextframe)
 {
   BCPos pc = debug_framepc(L, fn, nextframe);
   if (pc != NO_BCPOS) {
